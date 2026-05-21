@@ -23,5 +23,7 @@ async def convert_docx_to_pdf(file: UploadFile = File(...)):
 			print('libreoffice error:', result.stderr)
 			raise HTTPException(status_code=500, detail='libreoffice error')
 			return FileResponse(output_path, media_type='application/pdf', filename=pdf_filename)
-	except Exception as e: raise HTTPException(status_code=500, detail=str(e))
-	finally: if os.path.exists(input_path): os.remove(input_path)
+	except Exception as e:
+		raise HTTPException(status_code=500, detail=str(e))
+	finally:
+		if os.path.exists(input_path): os.remove(input_path)
